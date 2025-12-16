@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>🎄 ¡Felices Fiestas! — Yulis Variedades</title>
-<meta property="og:title" content="🎄 ¡Felices Fiestas! — Yulis Variedades">
+<title>🎄 ¡Felices Fiestas! — Yuli's Variedades</title>
+<meta property="og:title" content="🎄 ¡Felices Fiestas! — Yuli's Variedades">
 <meta property="og:description" content="Que la paz, la alegría y las bendiciones llenen tu hogar esta Navidad. ✨">
 <meta property="og:image" content="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200&auto=format&fit=crop">
 <meta property="og:type" content="website">
@@ -44,10 +44,10 @@
 </style>
 </head>
 <body>
-<div class="brand" aria-label="Yulis Variedades">
-  <img id="brand-img" src="logoyulis.jpeg" alt="Yulis Variedades">
+<div class="brand" aria-label="Yuli's Variedades">
+  <img id="brand-img" src="logoyulis.jpeg" alt="Yuli's Variedades">
   <div>
-    <div id="brand-title" class="title">Yulis Variedades</div>
+    <div id="brand-title" class="title">Yuli's Variedades</div>
     <div id="brand-subtitle" style="font-size:20px; color:#bdae08">Tupperware · L'BEL · Ésika · Cyzone · Pedidos SHEIN</div>
   </div>
 </div>
@@ -86,7 +86,7 @@
     </svg>
   </div>
   <p id="main-message" class="message">🎄 ¡Felices Fiestas! Que la paz y el amor llenen tu hogar. ✨</p>
-  <div class="signature">— De parte de Yulis Variedades</div>
+  <div class="signature">— De parte de Yuli's Variedades</div>
   <div class="ground"></div>
 </div>
 <div class="snow" id="snow"></div>
@@ -98,7 +98,7 @@
   const FLAKES = 120; const MIN_D = 8; const MAX_D = 18;
   function spawnSnow(){ for(let i=0;i<FLAKES;i++){ const f=document.createElement('div'); f.className='flake'; f.style.left=Math.random()*100+'vw'; const size=3+Math.random()*4; f.style.width=size+'px'; f.style.height=size+'px'; const dur=MIN_D+Math.random()*(MAX_D-MIN_D); f.style.animationDuration=dur+'s'; f.style.opacity=(0.6+Math.random()*0.4).toFixed(2); snowContainer.appendChild(f); setTimeout(()=>{ f.remove?.(); }, dur*1000+500);} }
   spawnSnow(); setInterval(spawnSnow, 3500);
-  const messages=[ '🎄 ¡Felices Fiestas! Que la paz y el amor llenen tu hogar. ✨','🎁Gracias por confiar en Yulis Variedades. ¡Que tus días estén llenos de alegría!','❄️ Yulis Variedades te desea: ¡Prosperidad, salud y momentos inolvidables!','✨ Que cada día traiga nuevas bendiciones para ti y tu familia.','🌟 ¡Feliz Navidad y un próspero Año Nuevo!' ];
+  const messages=[ '🎄 ¡Felices Fiestas! Que la paz y el amor llenen tu hogar. ✨','🎁Gracias por confiar en Yuli's Variedades. ¡Que tus días estén llenos de alegría!','❄️ Yuli's Variedades te desea: ¡Prosperidad, salud y momentos inolvidables!','✨ Que cada día traiga nuevas bendiciones para ti y tu familia.','🌟 ¡Feliz Navidad y un próspero Año Nuevo!' ];
   const mainMessage=document.getElementById('main-message'); let msgIndex=0; const ROTATE_MS=9000;
   function rotateMessage(){ mainMessage.classList.add('fade-out'); setTimeout(()=>{ msgIndex=(msgIndex+1)%messages.length; mainMessage.textContent=messages[msgIndex]; mainMessage.classList.remove('fade-out'); mainMessage.classList.add('fade-in'); setTimeout(()=> mainMessage.classList.remove('fade-in'), 450); },250);} setInterval(rotateMessage, ROTATE_MS);
   const audio=document.getElementById('bg-audio'); const overlay=document.getElementById('audio-overlay'); const btnStart=document.getElementById('audio-start'); audio.volume=1.0; audio.muted=false;
