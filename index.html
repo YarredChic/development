@@ -164,7 +164,10 @@
 <div class="credits">Hecho con cariño para ti 💙</div>
 
 <!-- Audio: música siempre (autoplay/loop) -->
-<audio src="audio/navidad.mp3">
+
+audio/navidad.mp3
+</audio>
+
 
 <script>
   /**
@@ -221,23 +224,33 @@
   /**
    * 3) Música: intentos de autoplay y desbloqueo por primera interacción
    */
+  
   const audio = document.getElementById('bg-audio');
-  function tryPlayAudio() {
-    if (!audio) return;
-    const playPromise = audio.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => { /* puede estar bloqueado por políticas del navegador */ });
+  // Asegurar volumen y que no esté muteado
+  audio.volume = 1.0;
+  audio.muted = false;
+
+  async function tryPlay() {
+    try {
+      await audio.play();
+      console.log("Audio reproduciendo");
+    } catch (e) {
+      console.log("Autoplay bloqueado, esperando interacción…");
     }
   }
-  document.addEventListener('DOMContentLoaded', tryPlayAudio);
-  function unlockAudioOnce() {
-    tryPlayAudio();
-    document.removeEventListener('touchstart', unlockAudioOnce);
-    document.removeEventListener('click', unlockAudioOnce);
-       document.removeEventListener('keydown', unlockAudioOnce);
+
+  // Intento al cargar
+  document.addEventListener("DOMContentLoaded", tryPlay);
+
+  // Desbloqueo al primer toque o clic
+  function unlock() {
+    tryPlay();
+    document.removeEventListener("click", unlock);
+    document.removeEventListener("touchstart", unlock);
   }
-  document.addEventListener('touchstart', unlockAudioOnce, { once:true });
-  document.addEventListener('click', unlockAudioOnce, { once:true });
-  document.addEventListener('keydown', unlockAudioOnce, { once:true });
+
+  document.addEventListener("click", unlock, { once: true });
+  document.addEventListener("touchstart", unlock, { once: true });
 </script>
+
 </body>
