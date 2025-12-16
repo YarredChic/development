@@ -46,10 +46,10 @@
 </head>
 <body>
 <div class="brand" aria-label="Yuli's Variedades">
-  <img id="brand-img" src="logoyulis.jpeg" alt="Yuli's Variedades">
+  <img id="brand-img" src="logo.jpeg" alt="Yuli's Variedades">
   <div>
-    <div id="brand-title" class="title">Yuli's Variedades</div>
-    <div id="brand-subtitle" style="font-size:20px; color:#bdae08">Tupperware · L'BEL · Ésika · Cyzone · Pedidos SHEIN</div>
+    <div id="brand-title" class="title">YULI'S</div>
+    <div id="brand-subtitle" style="font-size:12px; color:#cbd5e1">Tupperware · L'BEL · Ésika · Cyzone · Pedidos SHEIN</div>
   </div>
 </div>
 <div class="container">
@@ -92,23 +92,49 @@
 </div>
 <div class="snow" id="snow"></div>
 <div class="credits">Hecho con cariño para ti 💙</div>
+
+<!-- Overlay para activar audio en móviles -->
 <div id="audio-overlay"><div class="card"><div style="font-size:20px; font-weight:600; margin-bottom:8px;">🎵 Toca para activar la música</div><button id="audio-start" class="cta">Activar sonido</button><div style="font-size:12px; opacity:.85; margin-top:8px;">(Se activará automáticamente en futuras visitas)</div></div></div>
+
+<!-- Audio: autoplay/loop/inline -->
 <audio id="bg-audio" src="audio/navidad.mp3" autoplay loop playsinline preload="auto"></audio>
+
 <script>
+  // ===== Nieve =====
   const snowContainer = document.getElementById('snow');
   const FLAKES = 120; const MIN_D = 8; const MAX_D = 18;
   function spawnSnow(){ for(let i=0;i<FLAKES;i++){ const f=document.createElement('div'); f.className='flake'; f.style.left=Math.random()*100+'vw'; const size=3+Math.random()*4; f.style.width=size+'px'; f.style.height=size+'px'; const dur=MIN_D+Math.random()*(MAX_D-MIN_D); f.style.animationDuration=dur+'s'; f.style.opacity=(0.6+Math.random()*0.4).toFixed(2); snowContainer.appendChild(f); setTimeout(()=>{ f.remove?.(); }, dur*1000+500);} }
   spawnSnow(); setInterval(spawnSnow, 3500);
-  const messages=[ '🎄 ¡Felices Fiestas! Que la paz y el amor llenen tu hogar. ✨','🎁Gracias por confiar en Yuli's Variedades. ¡Que tus días estén llenos de alegría!','❄️ Yuli's Variedades te desea: ¡Prosperidad, salud y momentos inolvidables!','✨ Que cada día traiga nuevas bendiciones para ti y tu familia.','🌟 ¡Feliz Navidad y un próspero Año Nuevo!' ];
-  const mainMessage=document.getElementById('main-message'); let msgIndex=0; const ROTATE_MS=9000;
+
+  // ===== Mensajes rotatorios =====
+  const messages=[ '🎄 ¡Felices Fiestas! Que la paz y el amor llenen tu hogar. ✨','🎁 Gracias por confiar en Yuli\'s Variedades. ¡Que tus días estén llenos de alegría!','❄️ Desde Petén con cariño: ¡Prosperidad, salud y momentos inolvidables!','✨ Que cada día traiga nuevas bendiciones para ti y tu familia.','🌟 ¡Feliz Navidad y un próspero Año Nuevo!' ];
+  const mainMessage=document.getElementById('main-message'); let msgIndex=0; const ROTATE_MS=6000;
   function rotateMessage(){ mainMessage.classList.add('fade-out'); setTimeout(()=>{ msgIndex=(msgIndex+1)%messages.length; mainMessage.textContent=messages[msgIndex]; mainMessage.classList.remove('fade-out'); mainMessage.classList.add('fade-in'); setTimeout(()=> mainMessage.classList.remove('fade-in'), 450); },250);} setInterval(rotateMessage, ROTATE_MS);
-  const audio=document.getElementById('bg-audio'); const overlay=document.getElementById('audio-overlay'); const btnStart=document.getElementById('audio-start'); audio.volume=1.0; audio.muted=false;
-  async function tryPlay(){ try{ await audio.play(); overlay.style.display='none'; } catch(e){ console.log('Autoplay bloqueado, esperando interacción...'); } }
+
+  // ===== Audio: autoplay y desbloqueo móviles =====
+  const audio=document.getElementById('bg-audio');
+  const overlay=document.getElementById('audio-overlay');
+  const btnStart=document.getElementById('audio-start');
+  audio.volume=1.0; audio.muted=false;
+
+  async function tryPlay(){
+    try{ await audio.play(); if(overlay) overlay.style.display='none'; console.log('Audio reproduciendo (autoplay OK)'); }
+    catch(e){ console.log('Autoplay bloqueado, se requiere interacción…'); }
+  }
   document.addEventListener('DOMContentLoaded', tryPlay);
-  async function unlock(){ try{ await audio.play(); overlay.style.display='none'; } catch(e){ console.log('No se pudo reproducir; verifica el MP3.', e); } document.removeEventListener('click', unlock); document.removeEventListener('touchstart', unlock); }
-  btnStart?.addEventListener('click', unlock);
-  document.addEventListener('click', unlock, { once:true });
-  document.addEventListener('touchstart', unlock, { once:true });
+
+  async function unlockOnce(){
+    try{ await audio.play(); if(overlay) overlay.style.display='none'; console.log('Audio desbloqueado tras interacción'); }
+    catch(e){ console.log('No se pudo reproducir; verifica el MP3.', e); }
+    finally{
+      document.removeEventListener('click', unlockOnce);
+      document.removeEventListener('touchstart', unlockOnce);
+    }
+  }
+  btnStart?.addEventListener('click', unlockOnce);
+  document.addEventListener('click', unlockOnce, { once:true });
+  document.addEventListener('touchstart', unlockOnce, { once:true });
+
   document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible') tryPlay(); });
 </script>
 </body>
