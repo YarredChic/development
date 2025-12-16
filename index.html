@@ -48,7 +48,7 @@
 <div class="brand" aria-label="Yuli's Variedades">
   <img id="brand-img" src="logoyulis.jpeg" alt="Yuli's Variedades">
   <div>
-    <div id="brand-title" class="title">YULI'S</div>
+    <div id="brand-title" class="title">Yuli's Variedades</div>
     <div id="brand-subtitle" style="font-size:20px; color:#bdae08">Tupperware · L'BEL · Ésika · Cyzone · Pedidos SHEIN</div>
   </div>
 </div>
@@ -107,7 +107,7 @@
   spawnSnow(); setInterval(spawnSnow, 3500);
 
   // ===== Mensajes rotatorios =====
-  const messages=[ '🎄 ¡Felices Fiestas! Que la paz y el amor llenen tu hogar. ✨','🎁 Gracias por confiar en Yuli\'s Variedades. ¡Que tus días estén llenos de alegría!','❄️ Yuli\'s Variedades te desea: ¡Prosperidad, salud y momentos inolvidables!','✨ Que cada día traiga nuevas bendiciones para ti y tu familia.','🌟 ¡Feliz Navidad y un próspero Año Nuevo!' ];
+  const messages=[ '🎄 ¡Felices Fiestas! Que la paz y el amor llenen tu hogar. ✨','🎁 Gracias por confiar en Yuli\'s Variedades. ¡Eres Increobñe!','❄️ Yuli\'s Variedades te desea: ¡Prosperidad, momentos inolvidables!','✨ Que cada día traiga nuevas bendiciones para ti y tu familia.','🌟 ¡Feliz Navidad y un próspero Año Nuevo!' ];
   const mainMessage=document.getElementById('main-message'); let msgIndex=0; const ROTATE_MS=9000;
   function rotateMessage(){ mainMessage.classList.add('fade-out'); setTimeout(()=>{ msgIndex=(msgIndex+1)%messages.length; mainMessage.textContent=messages[msgIndex]; mainMessage.classList.remove('fade-out'); mainMessage.classList.add('fade-in'); setTimeout(()=> mainMessage.classList.remove('fade-in'), 450); },250);} setInterval(rotateMessage, ROTATE_MS);
 
