@@ -1,143 +1,84 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>🎄 ¡Felices Fiestas! — Yulis Variedades</title>
-
-<!-- Preview al compartir -->
 <meta property="og:title" content="🎄 ¡Felices Fiestas! — Yulis Variedades">
 <meta property="og:description" content="Que la paz, la alegría y las bendiciones llenen tu hogar esta Navidad. ✨">
-<meta property="og:image" content="">
+<meta property="og:image" content="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200&auto=format&fit=crop">
 <meta property="og:type" content="website">
-
 <style>
-  :root{
-    --bg:#0b1220;
-    --accent:#ffd166;
-    --white:#fff;
-    --green:#0ea5a5; /* tono para el árbol */
-  }
+  :root{ --bg:#0b1220; --accent:#ffd166; --white:#fff; --green:#0ea5a5; }
   *{box-sizing:border-box}
-  html,body{
-    height:100%; margin:0;
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
-    background: radial-gradient(1200px 700px at 50% 10%, #12223e 0%, var(--bg) 60%, #070c16 100%);
-    color:var(--white);
-    overflow:hidden;
-  }
-  .container{
-    height:100%;
-    display:flex; align-items:center; justify-content:center;
-    flex-direction:column; gap:18px; text-align:center; padding:24px;
-  }
-  .brand{
-    position:fixed; top:14px; right:14px;
-    display:flex; align-items:center; gap:10px;
-    background:#1f2937cc; padding:8px 10px; border-radius:12px;
-    border:1px solid #334155; backdrop-filter: blur(4px);
-  }
+  html,body{ height:100%; margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif; background: radial-gradient(1200px 700px at 50% 10%, #12223e 0%, var(--bg) 60%, #070c16 100%); color:var(--white); overflow-x:hidden; overflow-y:auto; }
+  .container{ min-height:100%; height:auto; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:18px; text-align:center; padding:24px; }
+  .brand{ position:fixed; top:14px; right:14px; display:flex; align-items:center; gap:10px; background:#1f2937cc; padding:8px 10px; border-radius:12px; border:1px solid #334155; backdrop-filter: blur(4px); max-width:92vw; }
   .brand img{ width:56px; height:56px; object-fit:cover; border-radius:10px }
-  .brand .title{ font-weight:700; letter-spacing:.3px }
+  .brand .title{ font-weight:700; letter-spacing:.3px; word-break:break-word }
   .star{ font-size:48px; color:var(--accent); text-shadow: 0 0 8px #ffea7a, 0 0 18px #ffd166; animation: pulse 2s ease-in-out infinite; user-select:none; }
   @keyframes pulse{ 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-3px) scale(1.08)} }
-
-  /* Escena/arbolito */
-  .scene{ position:relative; width:min(420px, 92vw); height:min(520px, 92vh) }
-  svg{ width:100%; height:100% }
+  .scene{ position:relative; width:min(420px, 92vw); height:auto }
+  svg{ width:100%; height:auto }
   .light{ filter: drop-shadow(0 0 6px currentColor); animation: twinkle 1.8s infinite }
   .light:nth-child(odd){ animation-duration: 2.2s }
   .light:nth-child(3n){ animation-duration: 1.6s }
   @keyframes twinkle{ 0%,100%{opacity:.35; transform:scale(.9)} 50%{opacity:1; transform:scale(1.25)} }
   .path-dash{ stroke-dasharray: 6 8; animation: dash 6s linear infinite }
   @keyframes dash{ to{ stroke-dashoffset: -140 } }
-
-  .message{ font-size:clamp(18px, 2.3vw, 22px); color:#f8fafc; letter-spacing:.3px; line-height:1.35; text-shadow: 0 1px 0 #0007; animation: messageIn 700ms ease-out both }
+  .message{ font-size:clamp(16px, 4.5vw, 22px); color:#f8fafc; letter-spacing:.3px; line-height:1.35; text-shadow: 0 1px 0 #0007; animation: messageIn 700ms ease-out both; max-width:92vw; margin:0 auto; white-space:normal; word-break:break-word }
   @keyframes messageIn{ from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:translateY(0)} }
-  .signature{ font-size:14px; color:#94a3b8 }
-
-  /* Sin botones */
-  .actions, button { display:none !important; }
-
-  /* Nieve */
+  .signature{ font-size:14px; color:#94a3b8; max-width:92vw; margin:0 auto; word-break:break-word }
+  .actions, button.hidden-actions { display:none !important; }
   .snow{ position:fixed; inset:0; pointer-events:none }
   .flake{ position:absolute; top:-10px; width:6px; height:6px; border-radius:50%; background:#ffffffcc; filter: drop-shadow(0 0 3px #fff); animation: fall linear forwards }
   @keyframes fall{ to{ transform: translateY(110vh) } }
   .ground{ position:absolute; bottom:-2px; left:50%; transform:translateX(-50%); width:120%; height:80px; background: linear-gradient(#0f172a, #0b1220 60%); border-top-left-radius: 50% 20px; border-top-right-radius: 50% 20px }
-
   .credits{ position:fixed; right:10px; bottom:10px; font-size:12px; color:#64748b; opacity:.85 }
-
-  /* Transiciones para mensajes rotatorios */
   #main-message { transition: opacity .4s ease; }
   .fade-out { opacity: 0; }
   .fade-in  { opacity: 1; }
+  #audio-overlay{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.55); color:#fff; z-index:9999; text-align:center; }
+  #audio-overlay .card{ max-width:90vw; }
+  #audio-overlay .cta{ background:#1f2937; border:1px solid #334155; color:#e5e7eb; padding:10px 14px; border-radius:10px; cursor:pointer }
+  @media (max-width: 420px){ .ground{ height:60px } }
 </style>
 </head>
 <body>
-
 <div class="brand" aria-label="Yulis Variedades">
-  <img id="brand-img" src="logoyulis.jpeg" alt="Yulis Variedades">
+  <img id="brand-img" src="WhatsApp Image 2025-12-11 at 20.16.25.jpeg" alt="Yulis Variedades">
   <div>
     <div id="brand-title" class="title">Yulis Variedades</div>
-    <div id="brand-subtitle" style="font-size:18px; color:#cbd5e1">Tupperware · L'BEL · Ésika · Cyzone · Pedidos SHEIN</div>
+    <div id="brand-subtitle" style="font-size:12px; color:#cbd5e1">Tupperware · L'BEL · Ésika · Cyzone · Pedidos SHEIN</div>
   </div>
 </div>
-
 <div class="container">
   <div class="star" aria-hidden="true">★</div>
-
-  <!-- 🎄 Arbolito SVG con luces y guirnaldas -->
   <div class="scene" role="img" aria-label="Arbolito navideño con luces animadas">
     <svg viewBox="0 0 360 460" aria-hidden="true">
-      <!-- Fondo suave detrás del árbol -->
       <defs>
         <linearGradient id="treeGrad" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#0f3a3a"/>
           <stop offset="100%" stop-color="#062626"/>
         </linearGradient>
       </defs>
-
-      <!-- Estrella en la punta -->
-      <g transform="translate(180,65)">
-        <g transform="scale(1.2)">
-          <polygon points="0,-22 6,-6 22,-6 10,4 14,20 0,10 -14,20 -10,4 -22,-6 -6,-6"
-                   fill="#ffd166" stroke="#ffea7a" stroke-width="1.5"/>
-        </g>
-      </g>
-
-      <!-- Tronco -->
+      <g transform="translate(180,65)"><g transform="scale(1.2)"><polygon points="0,-22 6,-6 22,-6 10,4 14,20 0,10 -14,20 -10,4 -22,-6 -6,-6" fill="#ffd166" stroke="#ffea7a" stroke-width="1.5"/></g></g>
       <rect x="165" y="345" width="30" height="48" fill="#8b5e3c" rx="6"/>
-
-      <!-- Silueta del árbol (tres niveles) -->
-      <g fill="url(#treeGrad)">
-        <path d="M180 95 L115 170 L245 170 Z" />
-        <path d="M180 150 L90 245 L270 245 Z" />
-        <path d="M180 220 L50 330 L310 330 Z" />
-      </g>
-
-      <!-- Guirnaldas (líneas con dash animado) -->
+      <g fill="url(#treeGrad)"><path d="M180 95 L115 170 L245 170 Z" /><path d="M180 150 L90 245 L270 245 Z" /><path d="M180 220 L50 330 L310 330 Z" /></g>
       <g stroke="#9ae6b4" stroke-width="2.2" fill="none" opacity="0.9">
         <path class="path-dash" d="M120 175 C160 190 200 190 240 175" />
         <path class="path-dash" d="M85 255 C140 270 220 270 275 255" />
         <path class="path-dash" d="M55 325 C130 345 230 345 305 325" />
       </g>
-
-      <!-- Luces (circulitos animados) -->
       <g>
-        <!-- fila 1 -->
         <circle class="light" cx="130" cy="175" r="4.5" fill="#ffd166"/>
         <circle class="light" cx="160" cy="185" r="4.5" fill="#f87171"/>
         <circle class="light" cx="200" cy="185" r="4.5" fill="#60a5fa"/>
         <circle class="light" cx="230" cy="175" r="4.5" fill="#34d399"/>
-
-        <!-- fila 2 -->
         <circle class="light" cx="95"  cy="255" r="5" fill="#fbbf24"/>
         <circle class="light" cx="145" cy="265" r="5" fill="#c084fc"/>
         <circle class="light" cx="215" cy="265" r="5" fill="#f87171"/>
         <circle class="light" cx="265" cy="255" r="5" fill="#60a5fa"/>
-
-        <!-- fila 3 -->
         <circle class="light" cx="70"  cy="325" r="5" fill="#34d399"/>
         <circle class="light" cx="135" cy="335" r="5" fill="#ffd166"/>
         <circle class="light" cx="225" cy="335" r="5" fill="#c084fc"/>
@@ -145,112 +86,30 @@
       </g>
     </svg>
   </div>
-
-  <!-- Mensaje principal que vamos a rotar -->
-  <p id="main-message" class="message">
-    🎄 ¡Felices Fiestas! Que la paz y el amor llenen tu hogar. ✨
-  </p>
-
+  <p id="main-message" class="message">🎄 ¡Felices Fiestas! Que la paz y el amor llenen tu hogar. ✨</p>
   <div class="signature">— De parte de Yulis Variedades</div>
-
-  <!-- Suelo decorativo -->
   <div class="ground"></div>
 </div>
-
-<!-- Nieve automática (siempre activa) -->
 <div class="snow" id="snow"></div>
-
-<!-- Créditos mínimos -->
 <div class="credits">Hecho con cariño para ti 💙</div>
-
-<!-- Audio: música siempre (autoplay/loop) -->
-
-audio/navidad.mp3
-</audio>
-
-
+<div id="audio-overlay"><div class="card"><div style="font-size:20px; font-weight:600; margin-bottom:8px;">🎵 Toca para activar la música</div><button id="audio-start" class="cta">Activar sonido</button><div style="font-size:12px; opacity:.85; margin-top:8px;">(Se activará automáticamente en futuras visitas)</div></div></div>
+<audio id="bg-audio" src="audio/navidad.mp3" autoplay loop playsinline preload="auto"></audio>
 <script>
-  /**
-   * 1) Nieve automática
-   */
   const snowContainer = document.getElementById('snow');
-  const FLAKES = 120;           // cantidad de copos
-  const MIN_DURATION = 8;       // segundos
-  const MAX_DURATION = 18;      // segundos
-  function spawnSnow(){
-    for(let i=0; i<FLAKES; i++){
-      const f = document.createElement('div');
-      f.className = 'flake';
-      f.style.left = Math.random() * 100 + 'vw';
-      const size = 3 + Math.random() * 4;
-      f.style.width = size + 'px';
-      f.style.height = size + 'px';
-      const dur = MIN_DURATION + Math.random() * (MAX_DURATION - MIN_DURATION);
-      f.style.animationDuration = dur + 's';
-      f.style.opacity = (0.6 + Math.random() * 0.4).toFixed(2);
-      f.style.filter = 'drop-shadow(0 0 3px #fff)';
-      snowContainer.appendChild(f);
-      setTimeout(()=> { if (f.parentNode) f.parentNode.removeChild(f); }, dur*1000 + 500);
-    }
-  }
-  spawnSnow();
-  setInterval(spawnSnow, 3500);
-
-  /**
-   * 2) Rotación automática de mensajes de saludo
-   */
-  const messages = [
-    '🎄 ¡Felices Fiestas! Que la paz y el amor llenen tu hogar. ✨',
-    '🎁 Gracias por confiar en Yulis Variedades. ¡Que tus días estén llenos de alegría!',
-    '❄️ ¡Prosperidad, salud y momentos inolvidables!',
-    '✨ Que cada día traiga nuevas bendiciones para ti y tu familia.',
-    '🌟 ¡Feliz Navidad y un próspero Año Nuevo!'
-  ];
-  const mainMessage = document.getElementById('main-message');
-  let msgIndex = 0;
-  const ROTATE_MS = 9000; // cada 6 segundos
-  function rotateMessage(){
-    mainMessage.classList.add('fade-out');
-    setTimeout(()=>{
-      msgIndex = (msgIndex + 1) % messages.length;
-      mainMessage.textContent = messages[msgIndex];
-      mainMessage.classList.remove('fade-out');
-      mainMessage.classList.add('fade-in');
-      setTimeout(()=> mainMessage.classList.remove('fade-in'), 450);
-    }, 250);
-  }
-  setInterval(rotateMessage, ROTATE_MS);
-
-  /**
-   * 3) Música: intentos de autoplay y desbloqueo por primera interacción
-   */
-  
-  const audio = document.getElementById('bg-audio');
-  // Asegurar volumen y que no esté muteado
-  audio.volume = 1.0;
-  audio.muted = false;
-
-  async function tryPlay() {
-    try {
-      await audio.play();
-      console.log("Audio reproduciendo");
-    } catch (e) {
-      console.log("Autoplay bloqueado, esperando interacción…");
-    }
-  }
-
-  // Intento al cargar
-  document.addEventListener("DOMContentLoaded", tryPlay);
-
-  // Desbloqueo al primer toque o clic
-  function unlock() {
-    tryPlay();
-    document.removeEventListener("click", unlock);
-    document.removeEventListener("touchstart", unlock);
-  }
-
-  document.addEventListener("click", unlock, { once: true });
-  document.addEventListener("touchstart", unlock, { once: true });
+  const FLAKES = 120; const MIN_D = 8; const MAX_D = 18;
+  function spawnSnow(){ for(let i=0;i<FLAKES;i++){ const f=document.createElement('div'); f.className='flake'; f.style.left=Math.random()*100+'vw'; const size=3+Math.random()*4; f.style.width=size+'px'; f.style.height=size+'px'; const dur=MIN_D+Math.random()*(MAX_D-MIN_D); f.style.animationDuration=dur+'s'; f.style.opacity=(0.6+Math.random()*0.4).toFixed(2); snowContainer.appendChild(f); setTimeout(()=>{ f.remove?.(); }, dur*1000+500);} }
+  spawnSnow(); setInterval(spawnSnow, 3500);
+  const messages=[ '🎄 ¡Felices Fiestas! Que la paz y el amor llenen tu hogar. ✨','🎁 Gracias por confiar en Yulis Variedades. ¡Que tus días estén llenos de alegría!','❄️ Desde Petén con cariño: ¡Prosperidad, salud y momentos inolvidables!','✨ Que cada día traiga nuevas bendiciones para ti y tu familia.','🌟 ¡Feliz Navidad y un próspero Año Nuevo!' ];
+  const mainMessage=document.getElementById('main-message'); let msgIndex=0; const ROTATE_MS=6000;
+  function rotateMessage(){ mainMessage.classList.add('fade-out'); setTimeout(()=>{ msgIndex=(msgIndex+1)%messages.length; mainMessage.textContent=messages[msgIndex]; mainMessage.classList.remove('fade-out'); mainMessage.classList.add('fade-in'); setTimeout(()=> mainMessage.classList.remove('fade-in'), 450); },250);} setInterval(rotateMessage, ROTATE_MS);
+  const audio=document.getElementById('bg-audio'); const overlay=document.getElementById('audio-overlay'); const btnStart=document.getElementById('audio-start'); audio.volume=1.0; audio.muted=false;
+  async function tryPlay(){ try{ await audio.play(); overlay.style.display='none'; } catch(e){ console.log('Autoplay bloqueado, esperando interacción...'); } }
+  document.addEventListener('DOMContentLoaded', tryPlay);
+  async function unlock(){ try{ await audio.play(); overlay.style.display='none'; } catch(e){ console.log('No se pudo reproducir; verifica el MP3.', e); } document.removeEventListener('click', unlock); document.removeEventListener('touchstart', unlock); }
+  btnStart?.addEventListener('click', unlock);
+  document.addEventListener('click', unlock, { once:true });
+  document.addEventListener('touchstart', unlock, { once:true });
+  document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible') tryPlay(); });
 </script>
-
 </body>
+</html>
